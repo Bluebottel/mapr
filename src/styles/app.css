@@ -1,0 +1,12 @@
+.grid-placer {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 30em;
+    grid-auto-columns: max-content;
+}
+
+.side-panel {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,17 @@
+.filter-panel {
+    padding: 0 0.5em 1em 0.5em;
+}
+
+.filter-bar {
+    width: 100%;
+    height: 2.5em;
+    padding-left: 1em;
+    font-size: 1rem;
+    border: 2px solid black;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.filter-bar::placeholder {
+    font-style: italic;
+}
+
