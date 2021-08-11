@@ -6,8 +6,12 @@ import 'leaflet/dist/leaflet.css'
 import Mapbox from './mapbox'
 import Infopanel from './infopanel'
 import Filterpanel from './filterpanel'
+import ModalWrapper from './modalwrapper'
 
 import './styles/app.css'
+import './styles/modal.css'
+
+import SettingsImage from './img/settings.svg'
 
 function App(props) {
   
@@ -15,8 +19,11 @@ function App(props) {
     selectedMarker: null,
     center: [59.3, 18.3],
     filterString: '',
+    modalOpen: false,
   })
 
+  console.log(state)
+  
   return (
     <div className = 'grid-placer'>
       <MapContainer
@@ -43,6 +50,15 @@ function App(props) {
 	  }}
 	/>
 	<Infopanel selectedMarker = { state.selectedMarker }/>
+	<SettingsImage
+	  className = 'settings-button'
+	  onClick = { e => setState({ ...state, modalOpen: true }) }
+	/>
+
+	<ModalWrapper
+	  isOpen = { state.modalOpen }
+	  closeModal = { () => setState({ ...state, modalOpen: false} ) }
+	/>
       </div>
       
     </div>

@@ -21,8 +21,10 @@ function Infopanel(props) {
       <h1>{ props.selectedMarker.name }</h1>
 
       <label>Owner</label>
-      <p>{ !props.selectedMarker.ownerName ? 'None recorded'
-	 : props.selectedMarker.ownerName }</p>
+      <p>
+	{ !props.selectedMarker.ownerName ? 'None recorded'
+	  : props.selectedMarker.ownerName }
+      </p>
 
       <label>Comments</label>
       <p>{ props.selectedMarker.comments.replaceAll('$', '\n') }</p>
@@ -47,7 +49,7 @@ function Infopanel(props) {
 
       <div className = 'tag-container'>
 	{
-	  props.selectedMarker?.equipmentTags?.split(',').map(tag => {
+	  props.selectedMarker?.equipmentTags?.split(',').map((tag, i) => {
 	    if (tag === '') return null
 	    return (
 	      <div
@@ -55,6 +57,7 @@ function Infopanel(props) {
 		style = {{
 		  backgroundColor: paint(tag)
 		}}
+		key = { i }
 	      >
 		{ tag }
 	      </div>
