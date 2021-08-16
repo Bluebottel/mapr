@@ -11,7 +11,7 @@ import ModalWrapper from './modalwrapper'
 import './styles/app.css'
 import './styles/modal.css'
 
-import SettingsImage from './img/settings.svg'
+import { ReactComponent as SettingsImage } from './img/settings.svg'
 
 function App(props) {
   
