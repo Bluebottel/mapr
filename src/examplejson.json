@@ -3,7 +3,7 @@
     { "Helger/Nätter": "#a5a8a5" },
     { "Båtmekaniker": "#ece13d" }
   ],
-  "dataOrigin": "Notyfile",
+  "dataOrigin": "CRM system",
   "dataEdited": "Wed Aug 11 2021 12:42:54 GMT+0200 (Central European Summer Time)",
   "missingDataString": "-",
   "fields": [
@@ -51,10 +51,10 @@
   ],
   "data": [
     {
-      "title": "FLIPPER FLASH",
-      "owner": "Gustaf Winqvist",
-      "comments": "kommentarer om FLIPPER FLASH",
-      "contactNumer": "070-302 22 03",
+      "title": "Exampleboat",
+      "owner": "Real Person",
+      "comments": "Comment about Exampleboat",
+      "contactNumer": "070-123 123 12",
       "price": "1600",
       "length": "",
       "width": "",
@@ -64,7 +64,8 @@
 	"Helger/Nätter"
       ],
       "lat": 59.3664863672071,
-      "lon": 18.3891162872314
+      "lon": 18.3891162872314,
+      "dataset": "example_set"
     }
   ]
 }
