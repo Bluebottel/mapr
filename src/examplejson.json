@@ -1,0 +1,70 @@
+{
+  "tagColors": [
+    { "Helger/Nätter": "#a5a8a5" },
+    { "Båtmekaniker": "#ece13d" }
+  ],
+  "dataOrigin": "Notyfile",
+  "dataEdited": "Wed Aug 11 2021 12:42:54 GMT+0200 (Central European Summer Time)",
+  "missingDataString": "-",
+  "fields": [
+    {
+      "label": "Owner",
+      "type": "simple",
+      "dataSource": "owner"
+    },
+
+    {
+      "label": "Comments",
+      "type": "simple",
+      "dataSource": "comments"
+    },
+
+    {
+      "label": "Contact number",
+      "type": "simple",
+      "dataSource": "larmNumber"
+    },
+
+    {
+      "label": "Price",
+      "type": "simple",
+      "dataSource": "price"
+    },
+    
+    {
+      "label": "Length / width / depth",
+      "type": "template",
+      "templateString": "$length / $width / $depth",
+      "missingDataString": "-"
+    },
+    
+    {
+      "label": "Top speed",
+      "type": "simple",
+      "dataSource": "topSpeed"
+    },
+
+    {
+      "type": "tags",
+      "dataSource": "tags"
+    }
+  ],
+  "data": [
+    {
+      "title": "FLIPPER FLASH",
+      "owner": "Gustaf Winqvist",
+      "comments": "kommentarer om FLIPPER FLASH",
+      "contactNumer": "070-302 22 03",
+      "price": "1600",
+      "length": "",
+      "width": "",
+      "depth": "",
+      "topSpeed": "44 kn",
+      "tags": [
+	"Helger/Nätter"
+      ],
+      "lat": 59.3664863672071,
+      "lon": 18.3891162872314
+    }
+  ]
+}

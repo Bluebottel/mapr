@@ -7,9 +7,6 @@ function ModalWrapper({ isOpen, closeModal }) {
 
   let [ loadingError, setLoadingError ] = useState()
   
-  console.log('modalwrapper: ', isOpen)
-
-  
   return (
     <Modal
       isOpen = { isOpen }
