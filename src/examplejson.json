@@ -22,7 +22,7 @@
     {
       "label": "Contact number",
       "type": "simple",
-      "dataSource": "larmNumber"
+      "dataSource": "contactNumber"
     },
 
     {
@@ -53,8 +53,8 @@
     {
       "title": "Exampleboat",
       "owner": "Real Person",
-      "comments": "Comment about Exampleboat",
-      "contactNumer": "070-123 123 12",
+      "comments": "Comments about Exampleboat",
+      "contactNumber": "070-123 123 12",
       "price": "1600",
       "length": "",
       "width": "",

@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 
+import { parseJSONFile, parseConfig } from './fileutils'
+
 Modal.setAppElement('#root')
 
 function ModalWrapper({ isOpen, closeModal }) {
 
   let [ loadingError, setLoadingError ] = useState()
+
+
+  // TODO: custom style the file picker element (separate function?)
+  // TODO: JSON parsing from file in separate file
   
   return (
     <Modal
@@ -30,30 +36,17 @@ function ModalWrapper({ isOpen, closeModal }) {
 	  id = 'file'
 	  className = 'inputfile'
 	  accept = '.json'
+	  onChange = { async event => {
+	    event.preventDefault()
 
-	  onChange = { event => {
-	      event.preventDefault()
-	      event.target.files[0].text()
-		   .then(data => {
-		     
-		     try {
-		       // parses from JSON to actual data
-		       data = JSON.parse(data)
-		       console.log(data)
-		     }
-		     catch (error) {
-		       setLoadingError('Error while loading: ' + error)
-		       console.log('Error while loading: ', error)
-		       return
-		     }
-		     
-		     // in case the user is trying to load a broken or empty file
-		     if (!data) {
-		       this.props.setLoadingError('JSON broken or missing')
-		       console.log('JSON broken or missing')
-		       return
-		     }
-		   })
+	    try {
+	      const combinedConfig = await parseJSONFile(event.target.files[0])
+	      const { config, data } = parseConfig(combinedConfig)
+	    }
+	    catch(error) {
+	      setLoadingError(error.message)
+	      return
+	    }
 	  }}
 	/>
 	

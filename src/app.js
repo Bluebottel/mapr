@@ -4,8 +4,8 @@ import { MapContainer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 
 import Mapbox from './mapbox'
-import Infopanel from './infopanel'
-import Filterpanel from './filterpanel'
+import SidePanel from './sidepanel'
+import SearchBar from './searchbar'
 import ModalWrapper from './modalwrapper'
 
 import './styles/app.css'
@@ -22,8 +22,6 @@ function App(props) {
     modalOpen: false,
   })
 
-  console.log(state)
-  
   return (
     <div className = 'grid-placer'>
       <MapContainer
@@ -43,13 +41,13 @@ function App(props) {
       </MapContainer>
       
       <div className = 'side-panel'>
-	<Filterpanel
+	<SearchBar
 	  filterString = { state.filterString }
 	  setFilterString = { newString => {
 	    setState({ ...state, filterString: newString })
 	  }}
 	/>
-	<Infopanel selectedMarker = { state.selectedMarker }/>
+	<SidePanel selectedMarker = { state.selectedMarker }/>
 	<SettingsImage
 	  className = 'settings-button'
 	  onClick = { e => setState({ ...state, modalOpen: true }) }
@@ -57,12 +55,12 @@ function App(props) {
 
 	<ModalWrapper
 	  isOpen = { state.modalOpen }
-	  closeModal = { () => setState({ ...state, modalOpen: false} ) }
+	  closeModal = { () => setState({ ...state, modalOpen: false }) }
 	/>
       </div>
       
     </div>
   )
-}	  
+}
 
 export default App
