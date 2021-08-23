@@ -1,7 +1,7 @@
 {
   "tagColors": [
-    { "Helger/Nätter": "#a5a8a5" },
-    { "Båtmekaniker": "#ece13d" }
+    [ "Helger/Nätter", "#a5a8a5" ],
+    [ "Båtmekaniker", "#ece13d" ]
   ],
   "dataOrigin": "CRM system",
   "dataEdited": "Wed Aug 11 2021 12:42:54 GMT+0200 (Central European Summer Time)",
