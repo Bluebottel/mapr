@@ -1,5 +1,8 @@
+const MISSING_DATA_STRING_DEFAULT = '-'
 
 
+
+// naively parse into an object
 async function parseJSONFile(fileHandle) {
   return new Promise((resolve, reject) => {
     fileHandle.text().then(json => {
@@ -18,6 +21,36 @@ async function parseJSONFile(fileHandle) {
     })
   })
 
+}
+
+function parseConfig({ tagColors,
+		       dataOrigin,
+		       dataEdited,
+		       author,
+		       missingDataString = MISSING_DATA_STRING_DEFAULT,
+		       fields,
+		       data }) {
+
+  const { map: tagColorsMap } = createTagColorsMap(tagColors)
+
+  if (!dataOrigin) dataOrigin = missingDataString
+  if (!dataEdited) dataEdited = missingDataString
+  else dataEdited = new Date(dataEdited)
+  
+  if (!author) author = missingDataString
+
+  return {
+    config: {
+      tagColors: tagColorsMap,
+      dataOrigin,
+      dataEdited,
+      author,
+      missingDataString,
+      fields,
+    },
+    data
+  }
+  
 }
 
 function verifyConfig({ tagColors,
@@ -225,4 +258,5 @@ function createTagColorsMap(tagTupleArray) {
 export {
   parseJSONFile,
   verifyConfig,
+  parseConfig,
 }
