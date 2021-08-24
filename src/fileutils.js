@@ -52,13 +52,13 @@ function verifyConfig({ tagColors,
   warnings.push(...metaWarnings)
   
   data.forEach((marker, i) => {
-    if (!(marker.hasOwnProperty('lat') || marker.hasOwnProperty('lat')))
+    if (!(marker.lat || marker.lat))
       errors.push({
 	element: marker,
 	message: `Marker #${i+1} is missing latitude/longitude`,
       })
 
-    if (!marker.hasOwnProperty('title'))
+    if (!marker.title)
       warnings.push({
 	element: marker,
 	message: `Marker #${i+1} is missing a title`,
@@ -69,7 +69,7 @@ function verifyConfig({ tagColors,
     if (missing) {
       warnings.push({
 	element: marker,
-	message: 'Marker #' + i + ' has tags without defined colors ('
+	message: 'Marker #' + (i+1) + ' has tags without defined colors ('
 	       + tagsWithoutColors.reduce((prev, curr) => `${prev}, curr`)
 	       + ')',
       })
@@ -89,7 +89,7 @@ function verifyTags(tagColorsMap, marker) {
   let tagsWithoutColors = []
   let missing = false
   
-  if (marker.hasOwnProperty('tags')) {
+  if (marker.tags) {
     marker.tags.forEach(tag => {
       if (!tagColorsMap.get(tag)) {
 	tagsWithoutColors.push(tag)
@@ -174,25 +174,25 @@ function verifyFields(fields) {
 function verifyMetaData(config) {
   let warnings = []
   
-  if (!config.hasOwnProperty('dataOrigin'))
+  if (!config.dataOrigin)
     warnings.push({
       element: [],
       message: 'dataOrigin property is missing',
     })
 
-  if (!config.hasOwnProperty('missingDataString'))
+  if (!config.missingDataString)
     warnings.push({
       element: [],
       message: 'missingDataString property is missing',
     })
 
-  if (!config.hasOwnProperty('dataEdited'))
+  if (!config.dataEdited)
     warnings.push({
       element: [],
       message: 'dataEdited property is missing',
     })
 
-  if (!config.hasOwnProperty('author'))
+  if (!config.author)
     warnings.push({
       element: [],
       message: 'author property is missing',
