@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 
-import { parseJSONFile, parseConfig } from './fileutils'
+import { parseJSONFile, verifyConfig } from './fileutils'
 
 Modal.setAppElement('#root')
 
@@ -12,7 +12,7 @@ function ModalWrapper({ isOpen, closeModal }) {
 
   // TODO: custom style the file picker element (separate function?)
   // TODO: JSON parsing from file in separate file
-  
+
   return (
     <Modal
       isOpen = { isOpen }
@@ -39,12 +39,18 @@ function ModalWrapper({ isOpen, closeModal }) {
 	  onChange = { async event => {
 	    event.preventDefault()
 
+	    console.log('changed')
+	    let combinedConfig = 'qbit'
+
 	    try {
-	      const combinedConfig = await parseJSONFile(event.target.files[0])
-	      const { config, data } = parseConfig(combinedConfig)
+	      console.log('pre json parse')
+	      combinedConfig = await parseJSONFile(event.target.files[0])
+	      console.log('combinedConfig: ', combinedConfig)
+	      console.log('verify: ', verifyConfig(combinedConfig))
 	    }
 	    catch(error) {
 	      setLoadingError(error.message)
+	      console.log('error ', error)
 	      return
 	    }
 	  }}
