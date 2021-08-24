@@ -33,8 +33,10 @@ function verifyConfig({ tagColors,
   // inadvertently left out but aren't critical
   let errors = [], warnings = []
 
-  // the Map constructor is surprisingly fault tolerant
-  const tagColorsMap = new Map(tagColors)
+  const { map: tagColorsMap,
+	  errors: tagColorMapErrors } = createTagColorsMap(tagColors)
+  errors.push(...tagColorMapErrors)
+  tagColors = tagColorsMap
 
   if (data.length === 0) errors.push({ message: 'No data found' })
 
@@ -64,7 +66,7 @@ function verifyConfig({ tagColors,
 	message: `Marker #${i+1} is missing a title`,
       })
 
-    const { missing, tagsWithoutColors } = verifyTags(tagColorsMap, marker)
+    const { missing, tagsWithoutColors } = verifyTags(tagColors, marker)
 
     if (missing) {
       warnings.push({
@@ -106,7 +108,6 @@ function verifyFields(fields) {
 
   if (fields.length === 0)
     errors.push({
-      element: [],
       message: 'No fields found',
     })
 
@@ -176,25 +177,21 @@ function verifyMetaData(config) {
   
   if (!config.dataOrigin)
     warnings.push({
-      element: [],
       message: 'dataOrigin property is missing',
     })
 
   if (!config.missingDataString)
     warnings.push({
-      element: [],
       message: 'missingDataString property is missing',
     })
 
   if (!config.dataEdited)
     warnings.push({
-      element: [],
       message: 'dataEdited property is missing',
     })
 
   if (!config.author)
     warnings.push({
-      element: [],
       message: 'author property is missing',
     })
 
@@ -204,6 +201,25 @@ function verifyMetaData(config) {
 
 function templateContainsDataPoints(templateString) {
   return templateString?.match(/\$\w+/g).length > 0
+}
+
+function createTagColorsMap(tagTupleArray) {
+  let tagMap
+  try {
+    tagMap = new Map(tagTupleArray)
+    return {
+      errors: [],
+      map: tagMap,
+    }
+  }
+  catch(error) {
+    return {
+      errors: {
+	message: 'Failed to create tagColors map: ' + error.message,
+      },
+      map: new Map(),
+    }
+  } 
 }
 
 export {
