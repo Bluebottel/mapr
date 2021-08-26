@@ -23,22 +23,19 @@ async function parseJSONFile(fileHandle) {
 
 }
 
-function parseConfig({ tagColors,
-		       dataOrigin,
-		       dataEdited,
-		       author,
-		       missingDataString = MISSING_DATA_STRING_DEFAULT,
+// parsed JSON object => { config, data }
+function parseConfig({ missingDataString = MISSING_DATA_STRING_DEFAULT,
+		       tagColors,
+		       dataOrigin = missingDataString,
+		       dataEdited = missingDataString,
+		       author = missingDataString,
 		       fields,
 		       data }) {
 
   const { map: tagColorsMap } = createTagColorsMap(tagColors)
 
-  if (!dataOrigin) dataOrigin = missingDataString
-  if (!dataEdited) dataEdited = missingDataString
-  else dataEdited = new Date(dataEdited)
+  dataEdited = new Date(dataEdited)
   
-  if (!author) author = missingDataString
-
   return {
     config: {
       tagColors: tagColorsMap,
