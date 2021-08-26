@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 
-import { parseJSONFile, verifyConfig } from './fileutils'
+import { parseJSONFile, verifyConfig, parseConfig } from './fileutils'
 
 Modal.setAppElement('#root')
 
-function ModalWrapper({ isOpen, closeModal }) {
+function ModalWrapper({ isOpen, closeModal, setConfig, setData }) {
 
   let [ loadingError, setLoadingError ] = useState()
 
@@ -40,13 +40,15 @@ function ModalWrapper({ isOpen, closeModal }) {
 	    event.preventDefault()
 
 	    console.log('changed')
-	    let combinedConfig = 'qbit'
+	    let configAndData = 'qbit'
 
 	    try {
-	      console.log('pre json parse')
-	      combinedConfig = await parseJSONFile(event.target.files[0])
-	      console.log('combinedConfig: ', combinedConfig)
-	      console.log('verify: ', verifyConfig(combinedConfig))
+	      configAndData = await parseJSONFile(event.target.files[0])
+	      const { config, data } = parseConfig(configAndData)
+	      setConfig(config)
+	      setData(data)
+
+	      // TODO: run verify and present to the user
 	    }
 	    catch(error) {
 	      setLoadingError(error.message)

@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css'
 
 import Mapbox from './mapbox'
 import SidePanel from './sidepanel'
-import SearchBar from './searchbar'
+import Filterpanel from './filterpanel'
 import ModalWrapper from './modalwrapper'
 
 import './styles/app.css'
@@ -17,10 +17,15 @@ function App(props) {
   
   let [state, setState] = useState({
     selectedMarker: null,
+    markers: [],
     center: [59.3, 18.3],
     filterString: '',
     modalOpen: false,
+    mapData: undefined,
   })
+
+  console.log('data: ', state.mapData)
+  console.log('config: ', state.config)
 
   return (
     <div className = 'grid-placer'>
@@ -41,13 +46,16 @@ function App(props) {
       </MapContainer>
       
       <div className = 'side-panel'>
-	<SearchBar
+	<Filterpanel
 	  filterString = { state.filterString }
 	  setFilterString = { newString => {
 	    setState({ ...state, filterString: newString })
 	  }}
 	/>
-	<SidePanel selectedMarker = { state.selectedMarker }/>
+	<SidePanel
+	  selectedMarker = { state.selectedMarker }
+	  config = { state.config }
+	/>
 	<SettingsImage
 	  className = 'settings-button'
 	  onClick = { e => setState({ ...state, modalOpen: true }) }
@@ -56,6 +64,12 @@ function App(props) {
 	<ModalWrapper
 	  isOpen = { state.modalOpen }
 	  closeModal = { () => setState({ ...state, modalOpen: false }) }
+	  setData = { newData => {
+	    console.log('setting data: ', newData)
+	    setState({ ...state, mapData: newData })}
+	  
+	  }
+	  setConfig = { newConfig => setState({ ...state, config: newConfig })}
 	/>
       </div>
       
