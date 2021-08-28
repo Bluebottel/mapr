@@ -3,8 +3,8 @@ import L from 'leaflet'
 import { Marker, TileLayer, Tooltip, useMap } from 'react-leaflet'
 
 import gold_icon from './img/marker-gold.png'
+import blue_icon from './img/marker-blue.png'
 import marker_shadow from './img/marker-shadow.png'
-import boats from './boats.json' //'./boats_small_list.json'
 
 import './styles/mapbox.css'
 
@@ -18,58 +18,56 @@ const GOLD_MARKER = new L.Icon({
 })
 
 const BLUE_MARKER = new L.Icon({
-  iconUrl: './img/marker-blue.png',
-  shadowUrl: './img/marker-shadow.png',
+  iconUrl: blue_icon,
+  shadowUrl: marker_shadow,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
 })
 
+const MINIMUM_FILTER_CHAR_COUNT = 2
 
-function Mapbox(props) {
+function Mapbox({ markers, selectedMarker, setSelected, filterString }) {
 
-  const { markers, selectedMarker, center,
-	  setSelected, filterString } = props
-
-  const map = useMap()
-  
+  //const map = useMap()  
   const lowerCaseFilter = filterString?.toLowerCase()
-
-  console.log('map: ', markers)
+  if (filterString.length >= MINIMUM_FILTER_CHAR_COUNT) {
+    markers = markers.filter( marker => marker.title.toLowerCase().includes(lowerCaseFilter))
+  }
   
-    
+
   return (
-    <div className = 'map-port'>
+    <div className='map-port'>
       <TileLayer
-      attribution = { '&copy; <a href="http://osm.org/copyright">'
-		   + 'OpenStreetMap</a> contributors' }
-      url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        attribution={'&copy; <a href="http://osm.org/copyright">'
+          + 'OpenStreetMap</a> contributors'}
+        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
 
       {
-	markers.map((marker, i) => {
-	  return (
-	    <Marker
-	      position = {[ marker.lat, marker.lon ]}
-	      key = { i }
-	      eventHandlers = {{
-		click: event => {
-		  setSelected({...marker})
-		  console.log(marker)
-		},
-	      }}
-	      icon = {
-	        markerEquals(marker, selectedMarker)
-	        ? GOLD_MARKER : BLUE_MARKER
-	      }
-	    >
-	      <Tooltip sticky>{ marker.title }</Tooltip>
-	    </Marker>
-	  )
-	})
+        markers.map((marker, i) => {
+          return (
+            <Marker
+              position = {[ marker.lat, marker.lon ]}
+              key = { i }
+              eventHandlers = {{
+                click: event => {
+                  setSelected({ ...marker })
+                  console.log(marker)
+                },
+              }}
+              icon = {
+                markerEquals(marker, selectedMarker)
+                  ? GOLD_MARKER : BLUE_MARKER
+              }
+            >
+              <Tooltip sticky>{ marker.title }</Tooltip>
+            </Marker>
+          )
+        })
       }
-      
+
     </div>
   )
 }
@@ -82,5 +80,5 @@ export default Mapbox
 // properties before using
 function markerEquals(markerA, markerB) {
   return markerA?.lat === markerB?.lat &&
-	 markerA?.lon === markerB?.lon
+    markerA?.lon === markerB?.lon
 }
