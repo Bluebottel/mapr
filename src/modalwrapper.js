@@ -5,20 +5,19 @@ import { parseJSONFile, verifyConfig, parseConfig } from './fileutils'
 
 Modal.setAppElement('#root')
 
-function ModalWrapper({ isOpen, closeModal, setConfig, setData }) {
+function ModalWrapper({ isOpen, closeModal, setConfig, setMarkers, setBoth }) {
 
   let [ loadingError, setLoadingError ] = useState()
 
 
   // TODO: custom style the file picker element (separate function?)
-  // TODO: JSON parsing from file in separate file
 
   return (
     <Modal
       isOpen = { isOpen }
       shouldCloseOnOverlayClick = { false }
-      className = "modal-frame"
-      overlayClassName = "modal-overlay"
+      className = 'modal-frame'
+      overlayClassName = 'modal-overlay'
       onAfterOpen = { () => { console.log('opened modal') }}
       onRequestClose = { e => console.log('closed modal') }
       ariaHideApp = { true }
@@ -39,14 +38,12 @@ function ModalWrapper({ isOpen, closeModal, setConfig, setData }) {
 	  onChange = { async event => {
 	    event.preventDefault()
 
-	    console.log('changed')
-	    let configAndData = 'qbit'
-
 	    try {
-	      configAndData = await parseJSONFile(event.target.files[0])
+	      const configAndData = await parseJSONFile(event.target.files[0])
 	      const { config, data } = parseConfig(configAndData)
-	      setConfig(config)
-	      setData(data)
+	      console.log('config parsed: ', config)
+	      setMarkers(data)
+				setConfig(config)
 
 	      // TODO: run verify and present to the user
 	    }

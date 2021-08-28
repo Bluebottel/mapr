@@ -36,7 +36,7 @@
       "label": "Length / width / depth",
       "type": "template",
       "templateString": "$length / $width / $depth",
-      "missingDataString": "-"
+      "missingDataString": "X"
     },
     
     {

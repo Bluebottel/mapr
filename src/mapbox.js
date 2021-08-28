@@ -17,7 +17,6 @@ const GOLD_MARKER = new L.Icon({
   shadowSize: [41, 41],
 })
 
-
 const BLUE_MARKER = new L.Icon({
   iconUrl: './img/marker-blue.png',
   shadowUrl: './img/marker-shadow.png',
@@ -27,47 +26,45 @@ const BLUE_MARKER = new L.Icon({
   shadowSize: [41, 41],
 })
 
-const MAX_ZOOM = 20
-
 
 function Mapbox(props) {
 
+  const { markers, selectedMarker, center,
+	  setSelected, filterString } = props
+
   const map = useMap()
   
-  const lowerCaseFilter = props.filterString?.toLowerCase()
-  const filteredList = props.filterString ? boats.filter(boat => {
-    return boat.ownerName?.toLowerCase().includes(lowerCaseFilter)
-	|| boat.name?.toLowerCase().includes(lowerCaseFilter)
-	|| boat.equipmentTags.toLowerCase().includes(lowerCaseFilter)
-  }) : boats
+  const lowerCaseFilter = filterString?.toLowerCase()
+
+  console.log('map: ', markers)
+  
     
   return (
     <div className = 'map-port'>
       <TileLayer
       attribution = { '&copy; <a href="http://osm.org/copyright">'
 		   + 'OpenStreetMap</a> contributors' }
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
 
       {
-	filteredList.map((boat, i) => {
+	markers.map((marker, i) => {
 	  return (
 	    <Marker
-	      position = { [boat.lat, boat.lon]}
+	      position = {[ marker.lat, marker.lon ]}
 	      key = { i }
-	      eventHandlers={{
-		click: e => {
-		  props.setSelected({...boat})
-		  console.log(boat)
+	      eventHandlers = {{
+		click: event => {
+		  setSelected({...marker})
+		  console.log(marker)
 		},
 	      }}
 	      icon = {
-	      props.selectedMarker?.orgNumber ===  boat.orgNumber
-	      && props.selectedMarker?.name === boat.name
-	      ? GOLD_MARKER : BLUE_MARKER
+	        markerEquals(marker, selectedMarker)
+	        ? GOLD_MARKER : BLUE_MARKER
 	      }
 	    >
-	      <Tooltip sticky>{ boat.name }</Tooltip>
+	      <Tooltip sticky>{ marker.title }</Tooltip>
 	    </Marker>
 	  )
 	})
@@ -75,6 +72,15 @@ function Mapbox(props) {
       
     </div>
   )
-}	  
+}
 
 export default Mapbox
+
+
+// TODO: give each marker an internal ID that
+// uniqely identifies them. Check for colliding
+// properties before using
+function markerEquals(markerA, markerB) {
+  return markerA?.lat === markerB?.lat &&
+	 markerA?.lon === markerB?.lon
+}

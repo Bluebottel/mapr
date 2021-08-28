@@ -21,16 +21,13 @@ function App(props) {
     center: [59.3, 18.3],
     filterString: '',
     modalOpen: false,
-    mapData: undefined,
+		config: {},
   })
-
-  console.log('data: ', state.mapData)
-  console.log('config: ', state.config)
-
+	
   return (
-    <div className = 'grid-placer'>
-      <MapContainer
-	center = { state.center }
+		<div className = 'grid-placer'>
+		<MapContainer
+			center = { state.center }
 	zoom = { 8 }
 	className = 'map-port'
       >
@@ -38,7 +35,6 @@ function App(props) {
 	  markers = { state.markers }
 	  selectedMarker = { state.selectedMarker }
 	  center = { state.center }
-	  setCenter = { coords => setState({ center: coords })}
 	  setSelected = { newMarker =>
 	    setState({ ...state, selectedMarker: newMarker })}
 	  filterString = { state.filterString }
@@ -64,12 +60,13 @@ function App(props) {
 	<ModalWrapper
 	  isOpen = { state.modalOpen }
 	  closeModal = { () => setState({ ...state, modalOpen: false }) }
-	  setData = { newData => {
-	    console.log('setting data: ', newData)
-	    setState({ ...state, mapData: newData })}
-	  
-	  }
-	  setConfig = { newConfig => setState({ ...state, config: newConfig })}
+	  setMarkers = { newMarkers => {
+	    setState(oldState => { return { ...oldState, markers: newMarkers } })
+		}}
+	  setConfig = { newConfig => {
+			setState(oldState => { return { ...oldState, config: newConfig } })
+		}}
+	  setBoth = { args => setState({ config: args.config, markers: args.markers }) }
 	/>
       </div>
       

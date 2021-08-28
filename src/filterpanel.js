@@ -2,7 +2,7 @@ import React from 'react'
 
 import './styles/filterpanel.css'
 
-const SearchBar = props => {
+const Filterpanel = props => {
 
   return (
     <div className = 'filter-panel'>
@@ -11,13 +11,13 @@ const SearchBar = props => {
 	className = 'filter-bar'
 	placeholder = 'Filter by boat or owner name, equipment'
 	value = { props.filterString }
-	onChange = { e => {
-	  props.setFilterString(e.target.value)
+	onChange = { event => {
+	  props.setFilterString(event.target.value)
 	}}
-	onFocus = { e => e.target.select() }
+	onFocus = { event => event.target.select() }
       />
     </div>
   )
 }	  
 
-export default SearchBar
+export default Filterpanel
