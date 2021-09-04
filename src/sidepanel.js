@@ -12,33 +12,33 @@ const DEFAULT_MISSING_DATA_STRING = '-'
 function SidePanel({ config, selectedMarker }) {
 
   const { missingDataString = DEFAULT_MISSING_DATA_STRING,
-	  fields, tagColors } = config
+    fields, tagColors } = config
 
   if (!selectedMarker || !fields) {
     return (
-      <div className = 'placeholder'>
-      No marker selected
+      <div className='placeholder'>
+        No marker selected
       </div>
     )
   }
 
-  // TODO: it's hard to add types to
+  // TODO: it's hard to add types since they touch many files, consolidate
   const typeMap = new Map([
-    [ 'simple', args => Simple({...args}) ],
-    [ 'tags', args => Tags({ tagColors, ...args}) ],
-    [ 'template', Template ],
+    ['simple', args => Simple({ ...args })],
+    ['tags', args => Tags({ tagColors, ...args })],
+    ['template', Template],
   ])
 
   if (!selectedMarker.title) selectedMarker.title = missingDataString
 
   return (
-    <div className = 'info-panel'>
-      <h1>{ selectedMarker.title }</h1>
+    <div className='info-panel'>
+      <h1>{selectedMarker.title}</h1>
       {
         fields.map(field => {
           const elementFunction = typeMap.get(field.type)
 
-          // don't render fields with an valid/missing type
+          // don't render fields with an invalid/missing type
           return elementFunction ? elementFunction({ field, marker: selectedMarker }) : ''
         })
       }

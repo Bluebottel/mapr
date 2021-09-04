@@ -48,13 +48,14 @@ function parseConfig({ missingDataString = DEFAULT_MISSING_DATA_STRING,
 
 }
 
-function verifyConfig({ tagColors,
-  dataOrigin,
-  dataEdited,
-  author,
-  missingDataString,
-  fields,
-  data }) {
+function verifyConfig({ config, data }) {
+
+    let { tagColors,
+      dataOrigin,
+      dataEdited,
+      author,
+      missingDataString,
+      fields } = config
 
   // errors are things that causes the marker to not display
   // at all and warnings are for things that might have been
