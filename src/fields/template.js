@@ -27,7 +27,7 @@ function Template({ field, marker }) {
 
   return (
     <section className='data-section'>
-      <label>{ label }</label>
+      <div className = 'data-section--label'>{ label }</div>
       <p className='data-section--text'>{ text }</p>
     </section>
   )

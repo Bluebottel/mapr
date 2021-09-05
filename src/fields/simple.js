@@ -11,7 +11,7 @@ const text = marker[dataSource] ? marker[dataSource] : missingDataString
 console.log('simple')
 return (
 <section className = 'data-section'>
-  <label>{ label }</label>
+  <div className = 'data-section--label'>{ label }</div>
   <p className = 'data-section--text'>{ text }</p>
 </section>
 )
