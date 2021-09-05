@@ -1,4 +1,5 @@
 const DEFAULT_MISSING_DATA_STRING = '-'
+const VALID_FIELD_TYPES = ['simple', 'template', 'tags']
 
 // naively parse into an object
 async function parseJSONFile(fileHandle) {
@@ -50,12 +51,12 @@ function parseConfig({ missingDataString = DEFAULT_MISSING_DATA_STRING,
 
 function verifyConfig({ config, data }) {
 
-    let { tagColors,
-      dataOrigin,
-      dataEdited,
-      author,
-      missingDataString,
-      fields } = config
+  let { tagColors,
+    dataOrigin,
+    dataEdited,
+    author,
+    missingDataString,
+    fields } = config
 
   // errors are things that causes the marker to not display
   // at all and warnings are for things that might have been
@@ -144,6 +145,15 @@ function verifyFields(fields) {
         element: field,
         message: `Field #${i + 1} is missing a type`
       })
+      
+      if (!VALID_FIELD_TYPES.includes(field.type)) {
+        errors.push({
+          element: field,
+          message: 'Field #' + (i + 1) + ' has an invalid type.'
+          + 'Valid types are '
+          + VALID_FIELD_TYPES.reduce((acc, curr) => acc + ', ' + curr)
+        })
+      }
 
     if (field.type === 'template') {
 
@@ -180,7 +190,7 @@ function verifyFields(fields) {
       }
 
       if (!field.dataSource) {
-        warnings.push({
+        errors.push({
           element: field,
           message: `Field #${i + 1} is missing a dataSource`
         })
@@ -188,7 +198,7 @@ function verifyFields(fields) {
     }
 
     if (field.type === 'tags' && !field.dataSource) {
-      warnings.push({
+      errors.push({
         element: field,
         message: `Field #${i + 1} is missing a dataSource`
       })
