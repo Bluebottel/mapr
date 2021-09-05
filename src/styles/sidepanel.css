@@ -45,19 +45,6 @@
    font-size: 12px;
 }
 
-label {
-    padding: 0 0.2em 0 0.2em;
-    width: min-content;
-    margin-left: 0.5em;
-    display: block;
-    position: relative;
-    border: 2px solid #646464;
-    font-size: 0.8rem;
-    background: #e8e8e8;
-    border-radius: 3px;
-    white-space: nowrap;
-}
-
 .data-section--text {
     padding: 0.5em;
     padding-top: 0.5em;
@@ -68,6 +55,19 @@ label {
     margin-top: -0.5em;
     padding-top: 0.7em;
     white-space: pre-line;
+}
+
+.data-section--label {
+    padding: 0 0.2em 0 0.2em;
+    width: min-content;
+    margin-left: 0.5em;
+    display: block;
+    position: relative;
+    border: 2px solid #646464;
+    font-size: 0.8rem;
+    background: #e8e8e8;
+    border-radius: 3px;
+    white-space: nowrap;
 }
 
 h1 {
