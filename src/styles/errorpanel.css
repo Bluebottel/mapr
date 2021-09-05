@@ -1,0 +1,45 @@
+.error-warning-container {
+  display: flex;
+  width: 100%;
+  height: max-content;
+  max-height: 300px;
+  gap: 5px;
+}
+
+.notice-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+  border-radius: 2px;
+  flex: 1;
+  overflow-y: auto;
+  gap: 10px;
+}
+
+.notice-panel--item {
+  white-space: pre-wrap;
+}
+
+.notice-panel--warnings {
+  background: #ffffb1;
+  border: 2px solid #fdf68e;
+}
+
+.notice-panel--errors {
+  background: #ff9e9e;
+  border: 2px solid #ff7878;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.subtle-text {
+  color: rgba(0, 0, 0, 0.5);
+}
